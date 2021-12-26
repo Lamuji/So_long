@@ -9,6 +9,7 @@ SRC = so_long.c \
 	ft_strjjoin.c \
 	ft_error.c \
 	check_map_error.c \
+	parse_map.c \
 
 OBJ = $(SRC:.c=.o)
 

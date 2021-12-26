@@ -6,11 +6,29 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 19:24:10 by rfkaier           #+#    #+#             */
-/*   Updated: 2021/12/25 19:24:40 by rfkaier          ###   ########.fr       */
+/*   Updated: 2021/12/26 18:21:04 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_map_rect(char **str)
+{
+	int i = 0;
+	int j = 1;
+	while (str[i])
+	{
+		while(str[j])
+		{
+			
+			if (ft_strlen(str[i]) != ft_strlen(str[j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	check_invalid_char(char **str, size_t height, size_t width)
 {
@@ -40,12 +58,14 @@ int	check_wall(char **tab, size_t height, size_t width)
 	size_t i;
 	size_t j;
 
+	
 	i = 0;
 	while (tab[i])
 	{
 		j = 0;
 		while (j < width)
 		{
+			
 			if (i == '0' || j == '0' || i == height - 1 || j == width - 1)
 			{
 				if (tab[i][j] != '1')

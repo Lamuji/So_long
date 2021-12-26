@@ -6,18 +6,20 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 13:56:16 by rfkaier           #+#    #+#             */
-/*   Updated: 2021/12/25 19:25:41 by rfkaier          ###   ########.fr       */
+/*   Updated: 2021/12/26 19:11:11 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef SO_LONG_H
 #define SO_LONG_H
 
+
 #include <stdio.h>
 #include "Libft/libft.h"
 #include "get_next_line.h"
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 typedef  struct	s_map
 {
@@ -32,7 +34,9 @@ int		check_invalid_char(char **str, size_t height, size_t width);
 int		check_wall(char **tab, size_t height, size_t width);
 int		arg_is_correct(int ac, char *str);
 void	ft_free(char **map);
-
+int		check_map_rect(char **str);
+void	parse_map(t_map map);
+char **	get_tab(char **tab, char **av);
 
 
 
