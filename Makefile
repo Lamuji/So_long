@@ -4,12 +4,11 @@ FLAGS = -Wall -Werror -Wextra
 NAME = so_long.a
 PROGRAM_NAME = so_long
 SRC = so_long.c \
-	get_next_line.c \
-	get_next_line_utils.c \
 	ft_strjjoin.c \
 	ft_error.c \
 	check_map_error.c \
 	parse_map.c \
+	build_map.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -21,7 +20,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C libft/
 	@$(AR) $(NAME) $(OBJ) 
-	@$(CC) $(FLAGS) -g $(NAME) libft/libft.a -o $(PROGRAM_NAME) $?
+	@$(CC) $(FLAGS) -lmlx -framework OpenGL -framework AppKit $(NAME) libft/libft.a -o $(PROGRAM_NAME) $?
 
 clean:
 	@make -C libft/ clean
