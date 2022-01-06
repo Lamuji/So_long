@@ -6,7 +6,7 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 13:57:30 by rfkaier           #+#    #+#             */
-/*   Updated: 2021/12/31 03:06:08 by rfkaier          ###   ########.fr       */
+/*   Updated: 2022/01/06 19:47:33 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,40 @@ char	**get_tab(char **tab, char **av)
 	return(tab);
 }
 
-void	init_struct(t_map map)
+void	init_struct(t_map *map)
 {
-	map.wall = "img/wall.xpm";
-	map.character = "img/char.xpm";
-	map.collec = "img/collec.xmp";
-	map.ground = "img/ground.xpm";
-	map.win_height = 1080;
-	map.win_width = 1920;
-	map.win = mlx_new_window(map.mlx, map.width, map.height, "SO_LONG");
+	map->mlx = mlx_init();
+	map->wall = "img/wall.xpm";
+	map->character = "img/char.xpm";
+	map->collec = "img/collec.xpm";
+	map->ground = "img/ground.xpm";
+	map->exit = "img/exit.xpm";
+	map->win_width = map->width * 32;
+	map->win_height = map->height * 32;
+	map->win = mlx_new_window(map->mlx, map->win_width, map->win_height, "SO_LONG");
+	map->y = 0;
+	map->perso = 0;
+	map->collect = 0;
+	map->exit_E = 0;
+	map->start_x = 0;
+	map->start_y = 0;
+	map->move = 0;
+	map->pos = 0;
 }
 
+int	loop(void *meta)
+{
+	t_map *map;
+	map = meta;
+	mlx_hook(map->win, 2, 0, deal_key, &map);
+	mlx_hook(map->win, 17, 0, exit_game, &map);
+	return 0;
+}
 
 int	main(int ac, char **av)
 {
 	t_map	map;
 	int 	i;
-
 	i = 0;
 	if ((arg_is_correct(ac, av[1])) == 0)
 	{
@@ -91,10 +108,13 @@ int	main(int ac, char **av)
 	map.tab = get_tab(map.tab, av);
 	map.width = ft_strlen(map.tab[i]);
 	map.height = ft_strlen1(map.tab);
-	parse_map(map);
-	init_struct(map);
-	printf("%d", i);
-	open_win(map);
+	parse_map(&map);
+	init_struct(&map);
+	display_win(&map);
+	mlx_hook(map.win, 2, 0, deal_key, &map);
+	mlx_hook(map.win, 17, 0, exit_game, &map);
+	// mlx_loop_hook(map.mlx, loop, (void *)map);
+	mlx_loop(map.mlx);
 	ft_free(map.tab);
 	return (0);
 }

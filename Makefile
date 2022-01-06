@@ -1,6 +1,6 @@
 CC = gcc -g
 AR = ar -rcs
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -g -fsanitize=address
 NAME = so_long.a
 PROGRAM_NAME = so_long
 SRC = so_long.c \
@@ -9,6 +9,9 @@ SRC = so_long.c \
 	check_map_error.c \
 	parse_map.c \
 	build_map.c \
+	print_texture.c \
+	ft_move.c
+	
 
 OBJ = $(SRC:.c=.o)
 

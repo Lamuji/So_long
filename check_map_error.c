@@ -6,7 +6,7 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 19:24:10 by rfkaier           #+#    #+#             */
-/*   Updated: 2021/12/26 18:21:04 by rfkaier          ###   ########.fr       */
+/*   Updated: 2021/12/31 04:11:07 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	check_wall(char **tab, size_t height, size_t width)
 	size_t i;
 	size_t j;
 
-	
 	i = 0;
 	while (tab[i])
 	{
