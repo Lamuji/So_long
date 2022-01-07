@@ -3,14 +3,14 @@ AR = ar -rcs
 FLAGS = -g -fsanitize=address
 NAME = so_long.a
 PROGRAM_NAME = so_long
-SRC = so_long.c \
-	ft_strjjoin.c \
-	ft_error.c \
-	check_map_error.c \
-	parse_map.c \
-	build_map.c \
-	print_texture.c \
-	ft_move.c
+SRC = srcs/so_long.c \
+	srcs/ft_strjjoin.c \
+	srcs/ft_error.c \
+	srcs/check_map_error.c \
+	srcs/parse_map.c \
+	srcs/build_map.c \
+	srcs/print_texture.c \
+	srcs/ft_move.c
 	
 
 OBJ = $(SRC:.c=.o)

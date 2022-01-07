@@ -6,7 +6,7 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 13:57:30 by rfkaier           #+#    #+#             */
-/*   Updated: 2022/01/06 19:47:33 by rfkaier          ###   ########.fr       */
+/*   Updated: 2022/01/07 18:33:05 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	ft_strlen1(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	return(i);
+	return (i);
 }
 
 void	ft_free(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i])
@@ -43,13 +43,12 @@ char	**get_tab(char **tab, char **av)
 	int		r;
 	char	buffer[2];
 
-	
 	r = 1;
 	line = NULL;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putendl_fd("file doesn't exist",2);
+		ft_putendl_fd("file doesn't exist", 2);
 		exit(EXIT_FAILURE);
 	}
 	while (r > 0)
@@ -62,7 +61,7 @@ char	**get_tab(char **tab, char **av)
 	if (!(tab))
 		exit(EXIT_FAILURE);
 	free(line);
-	return(tab);
+	return (tab);
 }
 
 void	init_struct(t_map *map)
@@ -75,30 +74,23 @@ void	init_struct(t_map *map)
 	map->exit = "img/exit.xpm";
 	map->win_width = map->width * 32;
 	map->win_height = map->height * 32;
-	map->win = mlx_new_window(map->mlx, map->win_width, map->win_height, "SO_LONG");
+	map->win = mlx_new_window
+		(map->mlx, map->win_width, map->win_height, "SO_LONG");
 	map->y = 0;
 	map->perso = 0;
 	map->collect = 0;
-	map->exit_E = 0;
+	map->exit_e = 0;
 	map->start_x = 0;
 	map->start_y = 0;
 	map->move = 0;
 	map->pos = 0;
 }
 
-int	loop(void *meta)
-{
-	t_map *map;
-	map = meta;
-	mlx_hook(map->win, 2, 0, deal_key, &map);
-	mlx_hook(map->win, 17, 0, exit_game, &map);
-	return 0;
-}
-
 int	main(int ac, char **av)
 {
 	t_map	map;
-	int 	i;
+	int		i;
+
 	i = 0;
 	if ((arg_is_correct(ac, av[1])) == 0)
 	{
@@ -113,7 +105,6 @@ int	main(int ac, char **av)
 	display_win(&map);
 	mlx_hook(map.win, 2, 0, deal_key, &map);
 	mlx_hook(map.win, 17, 0, exit_game, &map);
-	// mlx_loop_hook(map.mlx, loop, (void *)map);
 	mlx_loop(map.mlx);
 	ft_free(map.tab);
 	return (0);

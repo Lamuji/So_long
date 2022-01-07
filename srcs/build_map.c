@@ -6,7 +6,7 @@
 /*   By: rfkaier <rfkaier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 20:17:35 by rfkaier           #+#    #+#             */
-/*   Updated: 2022/01/06 20:08:25 by rfkaier          ###   ########.fr       */
+/*   Updated: 2022/01/07 18:33:42 by rfkaier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	deal_key(int keycode, t_map *map)
 	else if (keycode == W)
 	{
 		map->pos = 1;
-	  	move_top(map);
+		move_top(map);
 	}
 	else if (keycode == D)
 	{
@@ -41,7 +41,6 @@ int	deal_key(int keycode, t_map *map)
 		move_down(map);
 		map->pos = 4;
 	}
-	display_win(map);
 	printf("Number of movements : %d\n", map->move);
 	return (0);
 }
@@ -60,34 +59,16 @@ void	valid_char_pos(t_map *map)
 				map->start_x = map->x;
 			}
 			else if (map->tab[map->y][map->x] == 'E')
-				map->exit_E++;
+				map->exit_e++;
 			else if (map->tab[map->y][map->x] == 'C')
 				map->collect++;
 			map->x++;
 		}
 		map->y++;
 	}
-	if (map->perso < 1 || map->exit_E < 1)
-		ft_error(4, map->tab);
+	if (map->perso < 1 || map->exit_e < 1)
+		ft_error_2(4, map->tab);
 }
-
-// void	background(t_map *map)
-// {
-// 	int width;
-// 	int height;
-// 	map->pix_y = 0;
-// 	while (map->pix_y < map->win_height)
-// 	{
-// 		map->pix_x = 0;
-// 		while (map->pix_x < map->win_width)
-// 		{
-// 			map->img_ground = mlx_xpm_file_to_image(map->mlx, map->ground, &map->img_width, &map->img_height);
-// 			mlx_put_image_to_window(map->mlx, map->win, map->img_ground, map->pix_x, map->pix_y);
-// 			map->pix_x += 32;
-// 		}
-// 		map->pix_y += 32;
-// 	}
-// }
 
 void	display_win(t_map *map)
 {
@@ -100,16 +81,39 @@ void	display_win(t_map *map)
 		map->pix_x = 0;
 		while (map->tab[map->y][map->x])
 		{
+			put_ground(map);
 			if (map->tab[map->y][map->x] == '1')
 				put_wall(map);
-			else if (map->tab[map->y][map->x] == '0')
+			else if (map->tab[map->y][map->x] == 'C')
+				put_collec(map);
+			else if (map->tab[map->y][map->x] == 'P')
+				put_character(map);
+			else if (map->tab[map->y][map->x] == 'E')
+				put_exit(map);
+			map->x++;
+			map->pix_x += 32;
+		}
+		map->pix_y += 32;
+		map->y++;
+	}
+}
+
+void	display_win_2(t_map *map)
+{
+	map->y = 0;
+	map->pix_y = 0;
+	while (map->tab[map->y])
+	{
+		map->x = 0;
+		map->pix_x = 0;
+		while (map->tab[map->y][map->x])
+		{
+			if (map->tab[map->y][map->x] == '0')
 				put_ground(map);
 			else if (map->tab[map->y][map->x] == 'C')
 				put_collec(map);
 			else if (map->tab[map->y][map->x] == 'P')
 				put_character(map);
-			 else if (map->tab[map->y][map->x] == 'E')
-			 	put_exit(map);
 			map->x++;
 			map->pix_x += 32;
 		}
